@@ -1,5 +1,6 @@
 package com.example.WebFlux.controller;
 
+import com.example.WebFlux.dto.PersonajesDTO;
 import com.example.WebFlux.service.ServiceFlux;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,13 @@ public class ControllerFlux {
         return ResponseEntity.ok("hola mundo");
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getAll(){
-        return ResponseEntity.ok(serviceFlux.personajes());
+    @GetMapping("/page/{id}")
+    public ResponseEntity<List<PersonajesDTO>> getAll(@PathVariable Integer id){
+        return ResponseEntity.ok(serviceFlux.personajesByPage(id));
     }
 
-    @GetMapping("ById/{id}")
-    public ResponseEntity<?> getFinById(@PathVariable Integer id){
+    @GetMapping("personaje/{id}")
+    public ResponseEntity<PersonajesDTO> getFinById(@PathVariable Integer id){
         return ResponseEntity.ok(serviceFlux.personajeFinById(id));
     }
 
