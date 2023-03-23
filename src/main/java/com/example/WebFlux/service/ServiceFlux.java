@@ -1,9 +1,7 @@
 package com.example.WebFlux.service;
 
-import com.example.WebFlux.dto.RickAndMortyApi;
-import org.apache.coyote.Response;
+import com.example.WebFlux.dto.PersonajesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,12 +15,22 @@ public class ServiceFlux {
     @Autowired
     private RestTemplate restTemplate;
 
-    String url = "https://rickandmortyapi.com/api/character?page=1";
 
-    public ArrayList<HashMap> personajes(){
-        LinkedHashMap res = restTemplate.getForObject(url, LinkedHashMap.class);
-        ArrayList<HashMap> lin = (ArrayList) res.get("results");
-        return lin;
+
+    public Object personajes(){
+        String url = "https://rickandmortyapi.com/api/character?page=1";
+        LinkedHashMap<Object,Object> res = restTemplate.getForObject(url, LinkedHashMap.class);
+        System.out.println("1"+res.get("info").getClass().getName());
+        System.out.println("2"+res.get("results").getClass().getName());
+        //ArrayList<HashMap<String,String>> lista = (ArrayList<HashMap<String,String>> ) res.get("results");
+        return res;
+    }
+
+
+    public PersonajesDTO personajeFinById(Integer id){
+        String url = "https://rickandmortyapi.com/api/character/"+id;
+        PersonajesDTO res = restTemplate.getForObject(url, PersonajesDTO.class);
+        return res;
     }
 
 }
