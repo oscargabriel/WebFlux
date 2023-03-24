@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -44,13 +41,6 @@ public class ServiceFlux {
     }
 
     public LinkedHashMap<String,Object> personajeFinByName(String name){
-        /*for (int i = 1; i <= 826; i++) {
-            PersonajesDTO res = restTemplate.getForObject("https://rickandmortyapi.com/api/character/"+i, PersonajesDTO.class);
-            System.out.println(i);
-            if(res.getName().equalsIgnoreCase(name)){
-                return res;
-            }
-        }*/
 
         for (int i = 0; i < 42; i++) {
             LinkedHashMap<String, Object> res = restTemplate.getForObject(
