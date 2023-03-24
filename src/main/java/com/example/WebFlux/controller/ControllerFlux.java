@@ -26,9 +26,15 @@ public class ControllerFlux {
         return ResponseEntity.ok(serviceFlux.personajesByPage(id));
     }
 
-    @GetMapping("personaje/{id}")
+    @GetMapping("personajeById/{id}")
     public ResponseEntity<PersonajesDTO> getFinById(@PathVariable Integer id){
         return ResponseEntity.ok(serviceFlux.personajeFinById(id));
     }
+
+    @GetMapping("personajeByName/{name}")
+    public ResponseEntity<?> getFinByName(@PathVariable String name){
+        return ResponseEntity.ok(serviceFlux.personajeFinByName(name));
+    }
+
 
 }

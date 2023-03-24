@@ -27,9 +27,8 @@ public class ServiceFlux {
             LinkedHashMap<String, Object> res = restTemplate.getForObject(url, LinkedHashMap.class);
             return (List<PersonajesDTO>) res.get("results");
         }catch (HttpClientErrorException e){
-            System.out.println("pagina no encontrada");
+            System.out.println("pagina no encontrada");//TODO generar una exepcion para el return correspondiente
         }
-        System.out.println("pagina no encontrada");
         return null;
     }
 
@@ -39,8 +38,35 @@ public class ServiceFlux {
             PersonajesDTO res = restTemplate.getForObject(url, PersonajesDTO.class);
             return res;
         }catch (HttpClientErrorException e){
-            System.out.println("personaje no encontrada");
+            System.out.println("personaje no encontrada");//TODO generar una exepcion para el return correspondiente
         }
+        return null;
+    }
+
+    public LinkedHashMap<String,Object> personajeFinByName(String name){
+        /*for (int i = 1; i <= 826; i++) {
+            PersonajesDTO res = restTemplate.getForObject("https://rickandmortyapi.com/api/character/"+i, PersonajesDTO.class);
+            System.out.println(i);
+            if(res.getName().equalsIgnoreCase(name)){
+                return res;
+            }
+        }*/
+
+        for (int i = 0; i < 42; i++) {
+            LinkedHashMap<String, Object> res = restTemplate.getForObject(
+                    "https://rickandmortyapi.com/api/character?page="+(i+1),
+                    LinkedHashMap.class);
+            List<LinkedHashMap<String,Object>> personajes = (List<LinkedHashMap<String,Object>>) res.get("results");
+
+            for (LinkedHashMap<String,Object> personaje : personajes){
+                System.out.println(personaje.get("name"));
+                if(name.equalsIgnoreCase((String)personaje.get("name"))){
+                    return personaje;
+                }
+            }
+        }
+        System.out.println("no se encontro el personaje");
+
         return null;
     }
 

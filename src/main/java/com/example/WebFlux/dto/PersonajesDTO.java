@@ -14,7 +14,11 @@ public class PersonajesDTO {
 
     private Integer id;
 
+    private String name;
+
     private String status;
+
+    private String species;
 
     private String type;
 
