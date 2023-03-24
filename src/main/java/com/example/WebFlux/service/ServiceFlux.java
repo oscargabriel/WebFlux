@@ -5,9 +5,12 @@ import com.example.WebFlux.exception.DataNotFound;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -28,11 +31,11 @@ public class ServiceFlux {
      * @param id Integer del numero de la pagina
      * @return personajes por pagina
      */
-    public List<PersonajesDTO> personajesByPage(Integer id){
+    public List<LinkedHashMap<String,Object>>personajesByPage(Integer id){
         String url = "https://rickandmortyapi.com/api/character?page="+id;
         try {
             LinkedHashMap<String, Object> res = restTemplate.getForObject(url, LinkedHashMap.class);
-            return (List<PersonajesDTO>) res.get("results");
+            return (List<LinkedHashMap<String,Object>>) res.get("results");
         }catch (HttpClientErrorException e){
             throw new DataNotFound(HttpStatus.BAD_REQUEST,"No se encontro la pagina numero "+id);
         }
@@ -77,4 +80,31 @@ public class ServiceFlux {
         throw new DataNotFound(HttpStatus.BAD_REQUEST,"No se encontro el personaje de nombre "+name);
     }
 
+    /**
+     * buscar los personajes que pertenescan a una especie dada por el usuario
+     * @param species String dado
+     * @return Lista de nombres
+     */
+    public List<String> personajeFinBySpecies(String species) {
+        
+        List<LinkedHashMap<String,Object>> personajesDTOS;
+        List<String > personajes = new ArrayList<>();
+        for (int i = 1; i < 43; i++) {
+            personajesDTOS = personajesByPage(i);
+            personajesDTOS.forEach(x->{
+                if(species.equalsIgnoreCase((String) x.get("species"))) {
+                    personajes.add((String) x.get("name"));
+                    System.out.println(x.get("name"));
+                }
+            });
+        }
+
+        if(personajes.size()==0){
+            throw new DataNotFound(HttpStatus.BAD_REQUEST,"especie "+ species+" no encontrada");
+        }
+
+
+
+        return personajes;
+    }
 }

@@ -27,7 +27,7 @@ public class ControllerFlux {
      * @return personajes de esa pagina
      */
     @GetMapping("/page/{id}")
-    public ResponseEntity<List<PersonajesDTO>> getAll(@PathVariable Integer id){
+    public ResponseEntity<List<LinkedHashMap<String,Object>>> getAll(@PathVariable Integer id){
         return ResponseEntity.ok(serviceFlux.personajesByPage(id));
     }
 
@@ -54,4 +54,8 @@ public class ControllerFlux {
     }
 
 
+    @GetMapping("personajeBySpecies/{species}")
+    public ResponseEntity<List<String>> getAllFinBySpecies(@PathVariable String species){
+        return ResponseEntity.ok(serviceFlux.personajeFinBySpecies(species));
+    }
 }
