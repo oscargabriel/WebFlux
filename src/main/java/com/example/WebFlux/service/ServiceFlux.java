@@ -1,8 +1,10 @@
 package com.example.WebFlux.service;
 
 import com.example.WebFlux.dto.PersonajesDTO;
+import com.example.WebFlux.exception.DataNotFound;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -32,9 +34,8 @@ public class ServiceFlux {
             LinkedHashMap<String, Object> res = restTemplate.getForObject(url, LinkedHashMap.class);
             return (List<PersonajesDTO>) res.get("results");
         }catch (HttpClientErrorException e){
-            System.out.println("pagina no encontrada");//TODO generar una exepcion para el return correspondiente
+            throw new DataNotFound(HttpStatus.BAD_REQUEST,"No se encontro la pagina numero "+id);
         }
-        return null;
     }
 
     /**
@@ -48,9 +49,8 @@ public class ServiceFlux {
             PersonajesDTO res = restTemplate.getForObject(url, PersonajesDTO.class);
             return res;
         }catch (HttpClientErrorException e){
-            System.out.println("personaje no encontrada");//TODO generar una exepcion para el return correspondiente
+            throw new DataNotFound(HttpStatus.BAD_REQUEST,"No se encontro el personaje de id "+id);
         }
-        return null;
     }
 
     /**
@@ -74,9 +74,7 @@ public class ServiceFlux {
                 }
             }
         }
-        System.out.println("no se encontro el personaje");//TODO generar una exepcion para el return correspondiente
-
-        return null;
+        throw new DataNotFound(HttpStatus.BAD_REQUEST,"No se encontro el personaje de nombre "+name);
     }
 
 }
