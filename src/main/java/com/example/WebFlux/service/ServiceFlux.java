@@ -60,15 +60,15 @@ public class ServiceFlux {
      * @return personaje si lo encuentra
      */
     public LinkedHashMap<String,Object> personajeFinByName(String name){
-
+        //trae la paginas por orden
         for (int i = 0; i < 42; i++) {
             LinkedHashMap<String, Object> res = restTemplate.getForObject(
                     "https://rickandmortyapi.com/api/character?page="+(i+1),
                     LinkedHashMap.class);
+            //extrae la lista de personajes de la pagina
             List<LinkedHashMap<String,Object>> personajes = (List<LinkedHashMap<String,Object>>) res.get("results");
-
+            //recorre la lista de personajes para identificar el que corresponda
             for (LinkedHashMap<String,Object> personaje : personajes){
-                System.out.println(personaje.get("name"));
                 if(name.equalsIgnoreCase((String)personaje.get("name"))){
                     return personaje;
                 }

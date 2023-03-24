@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class ControllerFlux {
      * @return PersonajeDTO correspondiente
      */
     @GetMapping("personajeByName/{name}")
-    public ResponseEntity<?> getFinByName(@PathVariable String name){
+    public ResponseEntity<LinkedHashMap<String,Object>> getFinByName(@PathVariable String name){
         return ResponseEntity.ok(serviceFlux.personajeFinByName(name));
     }
 

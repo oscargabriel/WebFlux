@@ -13,10 +13,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * clase para el control de expeciones causadas por datos no encontrados
+ * genera un mensaje el cual se envia para indicar el problema
+ */
 @ControllerAdvice
 public class ExeptionController extends ResponseEntityExceptionHandler {
-    Logger log = LoggerFactory.getLogger(ExeptionController.class);
 
+    /**
+     * exepcion pra personajes o paginas no encontradas
+     * @param exception informacion correspondiente a la exepcion
+     * @return el map con la informacion necesaria para indicar el causante del problema
+     */
     @ExceptionHandler(DataNotFound.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String,Object>> handleDataNotFound(DataNotFound exception){
