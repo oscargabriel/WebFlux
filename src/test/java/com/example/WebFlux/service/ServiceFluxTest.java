@@ -1,6 +1,7 @@
 package com.example.WebFlux.service;
 
 import com.example.WebFlux.dto.PersonajesDTO;
+import com.example.WebFlux.exception.DataNotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,18 @@ class ServiceFluxTest {
 
     @Test
     void personajeFinByName() {
+
+        Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinByName("String name"));
+        String mensaje = "400 BAD_REQUEST \"No se encontro el personaje de nombre String name\"";
+        assertEquals(mensaje,exception.getMessage());
+
     }
 
     @Test
     void personajeFinBySpecies() {
+        Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinBySpecies("String name"));
+        String mensaje = "400 BAD_REQUEST \"especie String name no encontrada\"";
+        System.out.println(exception.getMessage());
+        assertEquals(mensaje,exception.getMessage());
     }
 }
