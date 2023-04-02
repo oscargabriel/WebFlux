@@ -1,6 +1,6 @@
 package com.example.WebFlux.service;
 
-import com.example.WebFlux.Rest.RestFlux;
+import com.example.WebFlux.dto.PersonajesDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,8 @@ class ServiceFluxTest {
 
     @Test
     void personajeFinById() {
+        PersonajesDTO personajesDTO = serviceFlux.personajeFinById(1);
+        assertNotEquals(null, personajesDTO);
     }
 
     @Test
