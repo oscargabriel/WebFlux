@@ -36,8 +36,12 @@ class ServiceFluxTest {
     }
 
     @Test
+    void personajeFinByName() {
+        LinkedHashMap<String, Object> res = serviceFlux.personajeFinByName("Rick Sanchez");
+        assertEquals("Rick Sanchez",res.get("name"));
+    }
+    @Test
     void personajeFinByNameNotFound() {
-
         Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinByName("String name"));
         String mensaje = "400 BAD_REQUEST \"No se encontro el personaje de nombre String name\"";
         assertEquals(mensaje,exception.getMessage());
