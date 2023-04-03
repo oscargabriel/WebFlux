@@ -49,10 +49,15 @@ class ServiceFluxTest {
     }
 
     @Test
+    void personajeFinBySpecies() {
+        List<String > personajes = serviceFlux.personajeFinBySpecies("Human");
+        assertNotNull(personajes);
+    }
+
+    @Test
     void personajeFinBySpeciesNotFound() {
         Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinBySpecies("String name"));
         String mensaje = "400 BAD_REQUEST \"especie String name no encontrada\"";
-        System.out.println(exception.getMessage());
         assertEquals(mensaje,exception.getMessage());
     }
 }
