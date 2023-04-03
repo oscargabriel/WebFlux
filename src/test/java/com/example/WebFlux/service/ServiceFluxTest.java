@@ -23,23 +23,36 @@ class ServiceFluxTest {
 
     }
 
+    /**
+     * test para la busqueda de los personajes correspondientes a una pagina
+     */
     @Test
     void personajesByPage() {
         List<LinkedHashMap<String,Object>> list = serviceFlux.personajesByPage(1);
         assertNotEquals(null, list);
     }
 
+    /**
+     * test la realizar busqueda de un personaje dado su id
+     */
     @Test
     void personajeFinById() {
         PersonajesDTO personajesDTO = serviceFlux.personajeFinById(1);
         assertNotEquals(null, personajesDTO);
     }
 
+    /**
+     * test la busqueda de un personaje dado su nombre
+     */
     @Test
     void personajeFinByName() {
         LinkedHashMap<String, Object> res = serviceFlux.personajeFinByName("Rick Sanchez");
         assertEquals("Rick Sanchez",res.get("name"));
     }
+
+    /**
+     * test para la busqueda de un personaje dado un nombre que no se encuentre y devuelva un exception
+     */
     @Test
     void personajeFinByNameNotFound() {
         Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinByName("String name"));
@@ -48,12 +61,18 @@ class ServiceFluxTest {
 
     }
 
+    /**
+     * test para la busqueda de personajes correspondientes a una especie
+     */
     @Test
     void personajeFinBySpecies() {
         List<String > personajes = serviceFlux.personajeFinBySpecies("Human");
         assertNotNull(personajes);
     }
 
+    /**
+     * test cuando no encuentra personajes que correspondan con una especie
+     */
     @Test
     void personajeFinBySpeciesNotFound() {
         Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinBySpecies("String name"));
