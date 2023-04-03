@@ -94,7 +94,6 @@ public class ServiceFlux {
             personajesDTOS.forEach(x->{
                 if(species.equalsIgnoreCase((String) x.get("species"))) {
                     personajes.add((String) x.get("name"));
-                    System.out.println(x.get("name"));
                 }
             });
         }
