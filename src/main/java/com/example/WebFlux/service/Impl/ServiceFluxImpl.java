@@ -59,7 +59,7 @@ public class ServiceFluxImpl implements ServiceFlux {
 
     /**
      * busca un personaje por su nombre, hace una peticion de cada pagina y va revisando los nombres de esa
-     * pagina, si no lo encuentra pasa a la siguiente pagina hasta terminar
+     * pagina, si no lo encuentra pasa a la siguiente pagina hasta terminar, si no lo encuentra genera un throw
      * @param name String del personaje
      * @return personaje si lo encuentra
      */
