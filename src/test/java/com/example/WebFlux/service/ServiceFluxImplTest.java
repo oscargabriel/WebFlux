@@ -2,6 +2,7 @@ package com.example.WebFlux.service;
 
 import com.example.WebFlux.dto.PersonajesDTO;
 import com.example.WebFlux.exception.DataNotFound;
+import com.example.WebFlux.service.Impl.ServiceFluxImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class ServiceFluxTest {
+class ServiceFluxImplTest {
 
     @Autowired
-    ServiceFlux serviceFlux;
+    ServiceFluxImpl serviceFluxImpl;
 
     @BeforeEach
     void setUp() {
@@ -28,7 +29,7 @@ class ServiceFluxTest {
      */
     @Test
     void personajesByPage() {
-        List<LinkedHashMap<String,Object>> list = serviceFlux.personajesByPage(1);
+        List<LinkedHashMap<String,Object>> list = serviceFluxImpl.personajesByPage(1);
         assertNotEquals(null, list);
     }
 
@@ -37,7 +38,7 @@ class ServiceFluxTest {
      */
     @Test
     void personajeFinById() {
-        PersonajesDTO personajesDTO = serviceFlux.personajeFinById(1);
+        PersonajesDTO personajesDTO = serviceFluxImpl.personajeFinById(1);
         assertNotEquals(null, personajesDTO);
     }
 
@@ -46,7 +47,7 @@ class ServiceFluxTest {
      */
     @Test
     void personajeFinByName() {
-        LinkedHashMap<String, Object> res = serviceFlux.personajeFinByName("Rick Sanchez");
+        LinkedHashMap<String, Object> res = serviceFluxImpl.personajeFinByName("Rick Sanchez");
         assertEquals("Rick Sanchez",res.get("name"));
     }
 
@@ -55,7 +56,7 @@ class ServiceFluxTest {
      */
     @Test
     void personajeFinByNameNotFound() {
-        Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinByName("String name"));
+        Exception exception = assertThrows(DataNotFound.class, () -> serviceFluxImpl.personajeFinByName("String name"));
         String mensaje = "400 BAD_REQUEST \"No se encontro el personaje de nombre String name\"";
         assertEquals(mensaje,exception.getMessage());
 
@@ -66,7 +67,7 @@ class ServiceFluxTest {
      */
     @Test
     void personajeFinBySpecies() {
-        List<String > personajes = serviceFlux.personajeFinBySpecies("Human");
+        List<String > personajes = serviceFluxImpl.personajeFinBySpecies("Human");
         assertNotNull(personajes);
     }
 
@@ -75,7 +76,7 @@ class ServiceFluxTest {
      */
     @Test
     void personajeFinBySpeciesNotFound() {
-        Exception exception = assertThrows(DataNotFound.class, () -> serviceFlux.personajeFinBySpecies("String name"));
+        Exception exception = assertThrows(DataNotFound.class, () -> serviceFluxImpl.personajeFinBySpecies("String name"));
         String mensaje = "400 BAD_REQUEST \"especie String name no encontrada\"";
         assertEquals(mensaje,exception.getMessage());
     }
