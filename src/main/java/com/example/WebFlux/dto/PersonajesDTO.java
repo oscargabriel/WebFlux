@@ -1,13 +1,19 @@
 package com.example.WebFlux.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Entidad para un uso mas codo al extraer datos de la api de rickandmortyapi
+ */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonajesDTO {
